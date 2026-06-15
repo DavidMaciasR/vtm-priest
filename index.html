@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Penitent Blade — Kindred Dossier</title>
+<title>Jaume — The Penitent Blade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
@@ -25,7 +25,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opa
 .crest{text-align:center;margin-bottom:24px}
 .sigil{font-family:'UnifrakturCook',cursive;font-size:clamp(42px,8vw,90px);color:var(--blood);line-height:.9;
   text-shadow:0 0 24px rgba(163,18,27,.45), 0 2px 0 #2a0608;letter-spacing:1px}
-.kicker{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.4em;text-transform:uppercase;font-size:11px;color:var(--gold);margin:14px 0 0}
+.epithet{font-family:'Cinzel',serif;letter-spacing:.26em;text-transform:uppercase;font-size:12px;color:var(--blood-glow);margin-top:12px}
+.kicker{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.4em;text-transform:uppercase;font-size:11px;color:var(--gold);margin:10px 0 0}
 .crossline{display:flex;align-items:center;justify-content:center;gap:18px;margin:16px auto 0;max-width:520px}
 .crossline span{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
 .crossline em{font-style:normal;color:var(--blood);font-size:18px}
@@ -130,7 +131,8 @@ footer{text-align:center;margin-top:42px;padding-top:22px;border-top:1px solid v
 <div class="sheet">
 
   <header class="crest">
-    <div class="sigil editable" id="charName" contenteditable spellcheck="false">The Penitent Blade</div>
+    <div class="sigil editable" id="charName" contenteditable spellcheck="false">Jaume</div>
+    <p class="epithet">The Penitent Blade · Mossèn of Santa María del Mar</p>
     <p class="kicker">Vampire · The Masquerade · 5th Edition · Barcelona by Night</p>
     <div class="crossline"><span></span><em>✝</em><span></span></div>
     <p class="subtitle">“My vengeance is God's will; I am only the instrument.”</p>
@@ -157,6 +159,7 @@ footer{text-align:center;margin-top:42px;padding-top:22px;border-top:1px solid v
     <div class="grp"><span class="lab2">Spent</span><span class="big" id="xpSpent">0</span></div>
     <div class="grp"><span class="lab2">Remaining</span><span class="big blood" id="xpRemain">0</span></div>
     <span class="spacer"></span>
+    <button class="btn" onclick="shareLink()">Share Link</button>
     <button class="btn" onclick="exportJSON()">Export</button>
     <button class="btn" onclick="document.getElementById('importer').click()">Import</button>
     <button class="btn" onclick="resetAll()">Reset</button>
@@ -341,7 +344,7 @@ const RITUALS=[
   {n:"Wake with Evening's Freshness",lvl:1},{n:'Blood Walk',lvl:1},{n:'Craft Bloodstone',lvl:1},{n:'Ward Against Ghouls',lvl:1},{n:'Clinging of the Insect',lvl:1},
   {n:'Truth of Blood',lvl:2},{n:'Eyes of Babel',lvl:2},{n:'Illuminate the Trail of Prey',lvl:2},{n:'Communicate with Kindred Sire',lvl:2}];
 const DEFAULT={
-  name:'The Penitent Blade',mode:'free',xpEarned:0,xpSpent:0,
+  name:'Jaume',mode:'free',xpEarned:0,xpSpent:0,
   attrs:{Strength:1,Dexterity:2,Stamina:2,Charisma:4,Manipulation:3,Composure:3,Intelligence:3,Wits:2,Resolve:2},
   skills:{Occult:4,Persuasion:3,Insight:3,Academics:3,Intimidation:2,Awareness:2,Subterfuge:2,Leadership:1,Medicine:1,Larceny:1},
   disc:{Dominate:2,'Blood Sorcery':1,Presence:1,Auspex:0},
@@ -349,9 +352,16 @@ const DEFAULT={
   rituals:{"Wake with Evening's Freshness":true}};
 
 function clone(o){return JSON.parse(JSON.stringify(o));}
+function enc(s){return btoa(unescape(encodeURIComponent(s)));}
+function dec(s){return decodeURIComponent(escape(atob(s)));}
 let S=load();
-function load(){try{return Object.assign(clone(DEFAULT),JSON.parse(localStorage.getItem(LS))||{});}catch(e){return clone(DEFAULT);}}
-function save(){localStorage.setItem(LS,JSON.stringify(S));}
+function load(){
+  try{if(location.hash.indexOf('#c=')===0){return Object.assign(clone(DEFAULT),JSON.parse(dec(location.hash.slice(3))));}}catch(e){}
+  try{return Object.assign(clone(DEFAULT),JSON.parse(localStorage.getItem(LS))||{});}catch(e){return clone(DEFAULT);}}
+function save(){const j=JSON.stringify(S);try{localStorage.setItem(LS,j);}catch(e){}try{history.replaceState(null,'','#c='+enc(j));}catch(e){}}
+function shareLink(){save();const url=location.href;
+  if(navigator.clipboard){navigator.clipboard.writeText(url).then(()=>toast('Share link copied — send it to your DM'),()=>toast(url,true));}
+  else{prompt('Copy this link for your DM:',url);}}
 function bag(cat){return cat==='attrs'?S.attrs:cat==='skills'?S.skills:cat==='disc'?S.disc:cat==='bg'?S.bg:null;}
 function getV(cat,item){if(cat==='bp')return S.bp||0;const b=bag(cat);return b[item]||0;}
 function setV(cat,item,v){if(cat==='bp'){S.bp=v;return;}bag(cat)[item]=v;}
@@ -449,7 +459,7 @@ function importJSON(e){const f=e.target.files[0];if(!f)return;const rd=new FileR
 document.getElementById('xpEarned').addEventListener('input',e=>{S.xpEarned=Math.max(0,parseInt(e.target.value||0));save();renderLedger();});
 document.getElementById('charName').addEventListener('input',e=>{S.name=e.target.textContent.trim()||'Unnamed';save();});
 document.getElementById('charName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();}});
-renderAll();
+renderAll();save();
 </script>
 </body>
 </html>

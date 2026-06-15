@@ -9,115 +9,73 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0c0a0b;
-  --ink2:#15100f;
-  --oxblood:#7a0d13;
-  --blood:#a3121b;
-  --blood-glow:#c41a24;
-  --ash:#b7a98c;
-  --parch:#e7dcc4;
-  --bone:#cdbf9f;
-  --gold:#c8a24a;
-  --gold-dim:#8a6f33;
-  --rule:rgba(200,162,74,.28);
+  --ink:#0c0a0b;--ink2:#15100f;--oxblood:#7a0d13;--blood:#a3121b;--blood-glow:#c41a24;
+  --ash:#b7a98c;--parch:#e7dcc4;--bone:#cdbf9f;--gold:#c8a24a;--gold-dim:#8a6f33;--rule:rgba(200,162,74,.28);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:'Cormorant Garamond',serif;
-  color:var(--parch);
-  background:
-    radial-gradient(1200px 700px at 50% -10%, rgba(122,13,19,.22), transparent 60%),
+body{font-family:'Cormorant Garamond',serif;color:var(--parch);
+  background:radial-gradient(1200px 700px at 50% -10%, rgba(122,13,19,.22), transparent 60%),
     radial-gradient(900px 600px at 100% 100%, rgba(122,13,19,.12), transparent 55%),
     linear-gradient(180deg,#0c0a0b 0%, #120d0c 55%, #0a0708 100%);
-  min-height:100vh;
-  line-height:1.5;
-  letter-spacing:.2px;
-  padding:clamp(18px,4vw,60px);
-  position:relative;
-  overflow-x:hidden;
-}
-/* grain */
-body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+  min-height:100vh;line-height:1.5;letter-spacing:.2px;padding:clamp(14px,3vw,46px);position:relative;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .sheet{max-width:1080px;margin:0 auto;position:relative;z-index:1}
-
-/* ---- masthead ---- */
-.crest{text-align:center;margin-bottom:38px;animation:rise .9s ease both}
-.sigil{
-  font-family:'UnifrakturCook',cursive;
-  font-size:clamp(46px,8vw,92px);
-  color:var(--blood);
-  line-height:.9;
-  text-shadow:0 0 24px rgba(163,18,27,.45), 0 2px 0 #2a0608;
-  letter-spacing:1px;
-}
-.kicker{
-  font-family:'Cinzel',serif;font-weight:600;
-  letter-spacing:.42em;text-transform:uppercase;
-  font-size:12px;color:var(--gold);margin:14px 0 0;
-}
-.crossline{display:flex;align-items:center;justify-content:center;gap:18px;margin:18px auto 0;max-width:520px}
+.crest{text-align:center;margin-bottom:24px}
+.sigil{font-family:'UnifrakturCook',cursive;font-size:clamp(42px,8vw,90px);color:var(--blood);line-height:.9;
+  text-shadow:0 0 24px rgba(163,18,27,.45), 0 2px 0 #2a0608;letter-spacing:1px}
+.kicker{font-family:'Cinzel',serif;font-weight:600;letter-spacing:.4em;text-transform:uppercase;font-size:11px;color:var(--gold);margin:14px 0 0}
+.crossline{display:flex;align-items:center;justify-content:center;gap:18px;margin:16px auto 0;max-width:520px}
 .crossline span{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
 .crossline em{font-style:normal;color:var(--blood);font-size:18px}
-.subtitle{font-style:italic;color:var(--ash);font-size:clamp(16px,2.3vw,20px);margin-top:10px}
-
-/* ---- identity strip ---- */
-.identity{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
-  background:var(--rule);border:1px solid var(--rule);margin-bottom:34px;
-  animation:rise 1s ease .08s both;
-}
-.id-cell{background:linear-gradient(180deg,rgba(20,14,13,.92),rgba(12,9,10,.92));padding:14px 16px}
-.id-cell .lab{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-dim)}
-.id-cell .val{font-size:21px;color:var(--parch);margin-top:4px;font-weight:500}
+.subtitle{font-style:italic;color:var(--ash);font-size:clamp(15px,2.3vw,20px);margin-top:10px}
+.identity{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:22px}
+.id-cell{background:linear-gradient(180deg,rgba(20,14,13,.92),rgba(12,9,10,.92));padding:13px 15px}
+.id-cell .lab{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-dim)}
+.id-cell .val{font-size:20px;color:var(--parch);margin-top:4px;font-weight:500}
 .id-cell .val.blood{color:var(--blood-glow)}
-
-/* ---- sections ---- */
-section{margin:34px 0;animation:rise 1s ease both}
-.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:18px}
-.shead h2{
-  font-family:'Cinzel',serif;font-weight:800;font-size:clamp(17px,2.6vw,22px);
-  text-transform:uppercase;letter-spacing:.2em;color:var(--parch);white-space:nowrap;
-}
+section{margin:30px 0}
+.shead{display:flex;align-items:baseline;gap:16px;margin-bottom:16px}
+.shead h2{font-family:'Cinzel',serif;font-weight:800;font-size:clamp(16px,2.6vw,22px);text-transform:uppercase;letter-spacing:.2em;color:var(--parch);white-space:nowrap}
 .shead h2 b{color:var(--blood)}
 .shead .line{height:1px;flex:1;background:linear-gradient(90deg,var(--rule),transparent)}
 .shead .num{font-family:'Cinzel',serif;color:var(--gold-dim);font-size:13px;letter-spacing:.2em}
-
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:760px){.cols,.cols3{grid-template-columns:1fr}}
-
-.card{
-  background:linear-gradient(180deg,rgba(22,16,15,.85),rgba(13,10,11,.9));
-  border:1px solid var(--rule);border-radius:2px;padding:18px 20px;position:relative;
-}
+.card{background:linear-gradient(180deg,rgba(22,16,15,.85),rgba(13,10,11,.9));border:1px solid var(--rule);border-radius:2px;padding:18px 20px;position:relative}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--oxblood),transparent)}
-.card h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.card h3{font-family:'Cinzel',serif;font-size:13.5px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.card h3 .v{color:var(--blood-glow);float:right;font-size:16px}
 .card .meta{font-style:italic;color:var(--ash);font-size:14px;margin-bottom:10px}
 .card p{font-size:15.5px;color:var(--bone)}
 .card p+p{margin-top:8px}
-
-/* dot ratings */
-.rate{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dotted rgba(183,169,140,.16)}
+.rate{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dotted rgba(183,169,140,.16)}
 .rate:last-child{border-bottom:0}
-.rate .nm{font-size:16px;color:var(--parch)}
-.rate .nm small{display:block;font-size:12px;font-style:italic;color:var(--ash);letter-spacing:.04em}
-.dots{display:flex;gap:5px;flex-shrink:0}
-.dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--gold-dim)}
+.rate .nm{font-size:15.5px;color:var(--parch)}
+.rate .nm small{display:block;font-size:11.5px;font-style:italic;color:var(--ash)}
+.rate .nm .clan{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.14em;color:var(--gold-dim);text-transform:uppercase}
+.cost{font-family:'Cinzel',serif;font-size:9.5px;color:var(--gold-dim);letter-spacing:.06em;margin-left:auto}
+.dots{display:flex;gap:5px;flex-shrink:0;margin-left:auto}
+.rate .cost+.dots{margin-left:8px}
+.dot{width:13px;height:13px;border-radius:50%;border:1px solid var(--gold-dim)}
 .dot.on{background:radial-gradient(circle at 35% 30%,var(--blood-glow),var(--oxblood));border-color:var(--blood);box-shadow:0 0 6px rgba(163,18,27,.5)}
 .dot.x{opacity:.28}
-
-/* track (humanity etc) */
-.track{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-.box{width:18px;height:18px;border:1px solid var(--gold-dim)}
+.dot.clk{cursor:pointer;transition:transform .08s,box-shadow .15s}
+.dot.clk:hover{transform:scale(1.28);box-shadow:0 0 8px var(--blood)}
+.track{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.box{width:19px;height:19px;border:1px solid var(--gold-dim);position:relative}
 .box.fill{background:repeating-linear-gradient(45deg,var(--oxblood),var(--oxblood) 3px,#3a070a 3px,#3a070a 6px);border-color:var(--blood)}
-.box.stain{background:rgba(0,0,0,.5);border-color:#3a3a3a;position:relative}
-.box.stain::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#5b1418;font-size:13px}
-
-/* convictions & touchstones */
+.box.sup{background:rgba(120,12,18,.22);border-color:var(--blood)}
+.box.sup::after{content:"╱";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--blood-glow);font-size:15px;font-weight:700}
+.box.agg{background:rgba(0,0,0,.55);border-color:#3a3a3a}
+.box.agg::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#b3121b;font-size:13px}
+.box.clk{cursor:pointer;transition:transform .08s}
+.box.clk:hover{transform:scale(1.14);border-color:var(--blood)}
+.note{margin-top:14px;font-size:13.5px;color:#a99b7e;font-style:italic;border-left:2px solid var(--gold-dim);padding:6px 0 6px 14px;background:rgba(200,162,74,.04)}
+.tag{display:inline-block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:2px 8px;border-radius:1px;margin-left:8px;vertical-align:middle;font-weight:600}
+.tag.warn{background:var(--blood);color:var(--parch)}
 .vow{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--rule)}
 .vow:last-child{border-bottom:0}
 .vow .mark{font-family:'UnifrakturCook',cursive;font-size:30px;color:var(--blood);line-height:1;flex-shrink:0;width:30px;text-align:center}
@@ -125,44 +83,54 @@ section{margin:34px 0;animation:rise 1s ease both}
 .vow .body .ts{font-size:14px;color:var(--ash);margin-top:5px}
 .vow .body .ts b{color:var(--gold);font-style:normal;font-weight:500}
 .vow .body .hook{font-size:13.5px;color:#9c8e72;margin-top:4px}
-
-.note{
-  margin-top:14px;font-size:13.5px;color:#a99b7e;font-style:italic;
-  border-left:2px solid var(--gold-dim);padding:6px 0 6px 14px;background:rgba(200,162,74,.04)
-}
-.tag{display:inline-block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink);background:var(--gold);padding:2px 8px;border-radius:1px;margin-left:8px;vertical-align:middle;font-weight:600}
-.tag.warn{background:var(--blood);color:var(--parch)}
-
-/* memory fragments */
-.frag{background:linear-gradient(180deg,rgba(18,10,11,.92),rgba(10,7,8,.95));border:1px solid var(--rule);
-  border-radius:2px;padding:20px 24px;position:relative;overflow:hidden}
+.frag{background:linear-gradient(180deg,rgba(18,10,11,.92),rgba(10,7,8,.95));border:1px solid var(--rule);border-radius:2px;padding:20px 24px;position:relative;overflow:hidden}
 .frag::after{content:"✝";position:absolute;right:18px;top:10px;font-size:64px;color:rgba(122,13,19,.14);font-family:'UnifrakturCook',cursive;pointer-events:none}
 .frag .lead{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px}
 .frag ul{list-style:none}
 .frag li{font-style:italic;font-size:16px;color:var(--bone);padding:7px 0 7px 22px;position:relative;border-bottom:1px dotted rgba(183,169,140,.12)}
 .frag li:last-child{border-bottom:0}
 .frag li::before{content:"—";position:absolute;left:0;color:var(--blood)}
-.frag li.gap{color:#7d7059;font-style:italic}
+.frag li.gap{color:#7d7059}
 .frag .haunt{margin-top:14px;font-size:15px;color:var(--parch);font-style:italic;border-left:2px solid var(--blood);padding-left:14px}
-
-footer{text-align:center;margin-top:46px;padding-top:22px;border-top:1px solid var(--rule);
-  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim)}
-
-@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-section:nth-of-type(1){animation-delay:.14s}
-section:nth-of-type(2){animation-delay:.2s}
-section:nth-of-type(3){animation-delay:.26s}
-section:nth-of-type(4){animation-delay:.32s}
-section:nth-of-type(5){animation-delay:.38s}
-section:nth-of-type(6){animation-delay:.44s}
+footer{text-align:center;margin-top:42px;padding-top:22px;border-top:1px solid var(--rule);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim)}
+.ledger{position:sticky;top:8px;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:16px;
+  background:linear-gradient(180deg,rgba(20,13,12,.97),rgba(12,9,10,.97));backdrop-filter:blur(7px);
+  border:1px solid var(--rule);border-radius:3px;padding:12px 16px;margin-bottom:8px;box-shadow:0 8px 30px rgba(0,0,0,.45)}
+.ledger .grp{display:flex;align-items:center;gap:8px}
+.lab2{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim)}
+.big{font-family:'Cinzel',serif;font-size:19px;color:var(--parch)}
+.big.blood{color:var(--blood-glow)}
+.ledger input[type=number]{width:60px;background:rgba(0,0,0,.4);border:1px solid var(--rule);color:var(--parch);font-family:'Cinzel',serif;font-size:15px;padding:4px 6px;border-radius:2px}
+.btn{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;background:transparent;border:1px solid var(--gold-dim);color:var(--gold);padding:6px 10px;border-radius:2px;transition:.15s}
+.btn:hover{background:var(--gold);color:var(--ink)}
+.modes{display:flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.modes .btn{border:0;border-radius:0}
+.modes .btn.on{background:var(--blood);color:var(--parch)}
+.spacer{flex:1 1 auto}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(40px);opacity:0;background:var(--ink2);
+  border:1px solid var(--gold);color:var(--gold);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.08em;padding:10px 18px;border-radius:3px;z-index:99;transition:.25s;pointer-events:none}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.bad{border-color:var(--blood);color:var(--blood-glow)}
+.hungerwarn{color:var(--blood-glow);font-style:italic;font-size:13px;margin-top:8px;min-height:1em}
+.ckrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dotted rgba(183,169,140,.14);cursor:pointer}
+.ckrow:last-child{border-bottom:0}
+.ckbox{width:15px;height:15px;border:1px solid var(--gold-dim);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.ckrow.on .ckbox{background:var(--oxblood);border-color:var(--blood)}
+.ckrow.on .ckbox::after{content:"✓";color:var(--parch);font-size:11px}
+.ckrow .cn{font-size:15px;color:var(--parch)}
+.ckrow.dis{opacity:.38;cursor:not-allowed}
+.ckrow .lv{font-family:'Cinzel',serif;font-size:9.5px;color:var(--gold-dim);margin-left:auto}
+.editable{outline:none;border-bottom:1px dashed transparent;transition:.15s}
+.editable:hover{border-bottom-color:var(--gold-dim)}
+.editable:focus{border-bottom-color:var(--gold);background:rgba(200,162,74,.06)}
+.help{font-size:12.5px;color:#8a7d63;font-style:italic;margin-top:4px}
 </style>
 </head>
 <body>
 <div class="sheet">
 
   <header class="crest">
-    <div class="sigil">The Penitent Blade</div>
+    <div class="sigil editable" id="charName" contenteditable spellcheck="false">The Penitent Blade</div>
     <p class="kicker">Vampire · The Masquerade · 5th Edition · Barcelona by Night</p>
     <div class="crossline"><span></span><em>✝</em><span></span></div>
     <p class="subtitle">“My vengeance is God's will; I am only the instrument.”</p>
@@ -173,78 +141,87 @@ section:nth-of-type(6){animation-delay:.44s}
     <div class="id-cell"><div class="lab">Predator</div><div class="val">Osiris</div></div>
     <div class="id-cell"><div class="lab">Concept</div><div class="val">Fallen Mossèn · Santa María del Mar</div></div>
     <div class="id-cell"><div class="lab">Generation</div><div class="val">13th</div></div>
-    <div class="id-cell"><div class="lab">Blood Potency</div><div class="val blood">1</div></div>
+    <div class="id-cell"><div class="lab">Compulsion</div><div class="val">Perfectionism</div></div>
     <div class="id-cell"><div class="lab">Sire</div><div class="val blood">Magister Lukas Brenner</div></div>
     <div class="id-cell"><div class="lab">Domain</div><div class="val">El Born · La Ribera</div></div>
   </div>
 
-  <!-- DISCIPLINES -->
-  <section>
-    <div class="shead"><h2>Disci<b>plines</b></h2><div class="line"></div><span class="num">p.243</span></div>
-    <div class="cols">
-      <div class="card">
-        <h3>Dominate ●●</h3>
-        <div class="rate"><span class="nm">Compel <small>Lv 1 — one-command coercion</small></span><span class="dots"><i class="dot on"></i></span></div>
-        <div class="rate"><span class="nm">Mesmerize <small>Lv 2 — implant a longer order</small></span><span class="dots"><i class="dot on"></i></span></div>
-        <p class="note">Your control engine — and your honest answer to feeding without consent.</p>
-      </div>
-      <div class="card">
-        <h3>Blood Sorcery ●</h3>
-        <div class="rate"><span class="nm">A Taste for Blood <small>Lv 1 — read resonance, generation, diablerie</small></span><span class="dots"><i class="dot on"></i></span></div>
-        <p class="note">Held at 1 dot on purpose — you skip Corrosive Vitae / Extinguish Vitae and lean on Rituals. Ceiling: Lv 1 rites.</p>
-      </div>
-      <div class="card">
-        <h3>Presence ● <span class="tag">via Osiris</span></h3>
-        <div class="rate"><span class="nm">Awe <small>Lv 1 — add Presence to Persuasion / Performance</small></span><span class="dots"><i class="dot on"></i></span></div>
-        <p class="note">The Osiris “one dot of Presence” pick — your pulpit charisma. Chosen over the Tremere-only Blood Sorcery dot to keep BS at 1.</p>
-      </div>
-      <div class="card">
-        <h3>Rituals</h3>
-        <div class="rate"><span class="nm">Wake with Evening's Freshness <small>Lv 1 — rouse from daysleep at any danger</small></span><span class="dots"><i class="dot on"></i></span></div>
-        <p class="note">Your free creation ritual (Blood Sorcery 1+). Next XP buy: <em>Truth of Blood</em> or <em>Blood Walk</em>.</p>
-        <p style="font-size:13px;color:#8a7d63;margin-top:8px;font-style:italic">Auspex — discarded at creation (3rd clan Discipline, untaken).</p>
+  <div class="ledger">
+    <div class="grp"><span class="lab2">Mode</span>
+      <div class="modes">
+        <button class="btn" id="mFree" onclick="setMode('free')">Creation · Free</button>
+        <button class="btn" id="mXp" onclick="setMode('xp')">Advancement · XP</button>
       </div>
     </div>
+    <div class="grp"><span class="lab2">XP&nbsp;Earned</span><input type="number" id="xpEarned" min="0" step="1"></div>
+    <div class="grp"><span class="lab2">Spent</span><span class="big" id="xpSpent">0</span></div>
+    <div class="grp"><span class="lab2">Remaining</span><span class="big blood" id="xpRemain">0</span></div>
+    <span class="spacer"></span>
+    <button class="btn" onclick="exportJSON()">Export</button>
+    <button class="btn" onclick="document.getElementById('importer').click()">Import</button>
+    <button class="btn" onclick="resetAll()">Reset</button>
+    <input type="file" id="importer" accept="application/json" style="display:none" onchange="importJSON(event)">
+  </div>
+  <p class="help" id="modeHelp" style="margin-bottom:24px"></p>
+
+  <section>
+    <div class="shead"><h2>Attri<b>butes</b></h2><div class="line"></div><span class="num">click to set · 5 XP × new rating</span></div>
+    <div class="cols3" id="attrsWrap"></div>
   </section>
 
-  <!-- ATTRIBUTES & SKILLS -->
   <section>
-    <div class="shead"><h2>Traits</h2><div class="line"></div><span class="num">Attributes · Skills</span></div>
+    <div class="shead"><h2>Skills</h2><div class="line"></div><span class="num">click to set · 3 XP × new rating</span></div>
+    <div class="cols3" id="skillsWrap"></div>
+    <p class="note" id="derived"></p>
+  </section>
+
+  <section>
+    <div class="shead"><h2>Disci<b>plines</b></h2><div class="line"></div><span class="num">p.243 · in-clan 5× · out-of-clan 7×</span></div>
     <div class="cols3">
-      <div class="card"><h3>Physical</h3>
-        <div class="rate"><span class="nm">Strength</span><span class="dots"><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Dexterity</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Stamina</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
+      <div class="card"><h3>Ratings</h3><div id="discWrap"></div>
+        <p class="help">Tremere in-clan: Auspex · Dominate · Blood Sorcery. Presence is out-of-clan (Osiris gift).</p>
       </div>
-      <div class="card"><h3>Social</h3>
-        <div class="rate"><span class="nm">Charisma</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Manipulation</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Composure</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
+      <div class="card"><h3>Powers Known</h3>
+        <p><b style="color:var(--gold)">Dominate:</b> Compel (1) · Mesmerize (2)</p>
+        <p><b style="color:var(--gold)">Blood Sorcery:</b> A Taste for Blood (1)</p>
+        <p><b style="color:var(--gold)">Presence:</b> Awe (1)</p>
+        <p class="help">Each Discipline dot = one power of that level or lower.</p>
       </div>
-      <div class="card"><h3>Mental</h3>
-        <div class="rate"><span class="nm">Intelligence</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Wits</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Resolve</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
+      <div class="card"><h3>Blood Sorcery Rituals <span style="float:right;font-size:10px;color:var(--gold-dim)" id="ritCeil"></span></h3>
+        <div id="ritualWrap"></div>
+        <p class="help">Free one at creation; thereafter level × 3 XP. Capped at your Blood Sorcery rating.</p>
       </div>
     </div>
-    <div class="cols" style="margin-top:18px">
-      <div class="card"><h3>Key Skills</h3>
-        <div class="rate"><span class="nm">Occult <small>Specialty: Blood Magic</small></span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Persuasion</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Insight</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Academics <small>Specialty: Theology</small></span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-      </div>
-      <div class="card"><h3>Support Skills</h3>
-        <div class="rate"><span class="nm">Intimidation</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Awareness</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Subterfuge</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Leadership · Medicine · Larceny</span><span class="dots"><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-      </div>
-    </div>
-    <p class="note">Derived — <b>Health</b> 5 (Stamina + 3) · <b>Willpower</b> 5 (Composure + Resolve). Distribution is a suggested specialist spread; adjust to taste.</p>
   </section>
 
-  <!-- PREDATOR PACKAGE -->
+  <section>
+    <div class="shead"><h2>Vitals</h2><div class="line"></div><span class="num">click boxes to track damage</span></div>
+    <div class="cols">
+      <div class="card"><h3>Health <span class="v" id="hpVal"></span></h3>
+        <p class="meta">Stamina + 3 · click: empty → superficial → aggravated</p>
+        <div class="track" id="hpTrack"></div>
+      </div>
+      <div class="card"><h3>Willpower <span class="v" id="wpVal"></span></h3>
+        <p class="meta">Composure + Resolve · click to mark damage</p>
+        <div class="track" id="wpTrack"></div>
+      </div>
+    </div>
+    <div class="cols3" style="margin-top:18px">
+      <div class="card"><h3>Hunger <span class="v" id="hungerVal"></span></h3>
+        <div class="dots" id="hungerTrack" style="margin-left:0;margin-top:8px"></div>
+        <div class="hungerwarn" id="stigwarn"></div>
+      </div>
+      <div class="card"><h3>Blood Potency</h3>
+        <div id="bpWrap" style="margin-top:6px"></div>
+        <p class="help">Advancement cost: 10 XP × new rating.</p>
+      </div>
+      <div class="card"><h3>Humanity <span class="v" id="humVal"></span></h3>
+        <div class="track" id="humTrack" style="margin-top:8px"></div>
+        <p class="help">Click to set. Stains convert to lost Humanity at session's end.</p>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="shead"><h2>The <b>Osiris</b> Package</h2><div class="line"></div><span class="num">p.177</span></div>
     <div class="cols">
@@ -254,31 +231,23 @@ section:nth-of-type(6){animation-delay:.44s}
         <p>● <b>3 dots — Fame / Herd</b></p>
         <p>● <b>2 dots — Enemies / Mythic Flaws</b></p>
       </div>
-      <div class="card"><h3>Backgrounds <span class="tag">Fame / Herd</span></h3>
-        <div class="rate"><span class="nm">Herd <small>your congregation / worshippers</small></span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <div class="rate"><span class="nm">Fame <small>local renown as a charismatic priest</small></span><span class="dots"><i class="dot on"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i><i class="dot x"></i></span></div>
-        <p class="note">Suggested 2/1 split — flip to Fame ●● / Herd ● if you want reach over reliable blood.</p>
+      <div class="card"><h3>Backgrounds <span style="float:right;font-size:10px;color:var(--gold-dim)">3 XP / dot</span></h3>
+        <div id="bgWrap"></div>
       </div>
     </div>
   </section>
 
-  <!-- FLAWS -->
   <section>
     <div class="shead"><h2>Mythic <b>Flaws</b></h2><div class="line"></div><span class="num">p.182</span></div>
     <div class="cols">
-      <div class="card"><h3>Folkloric Block ● <span class="tag warn">1 pt</span></h3>
-        <p class="meta">Holy symbols</p>
-        <p>A fallen shepherd who flinches from the Cross — you must shrink away from any holy symbol presented by a believer, or spend Willpower to push through.</p>
-      </div>
-      <div class="card"><h3>Stigmata ● <span class="tag warn">1 pt</span></h3>
-        <p class="meta">Bleeds at Hunger 4</p>
-        <p>Christ's wounds open on your hands, feet, and brow when Hunger reaches 4 — holy theatre to your flock, a Masquerade risk to everyone else.</p>
-      </div>
+      <div class="card"><h3>Folkloric Block ● <span class="tag warn">1 pt</span></h3><p class="meta">Holy symbols</p>
+        <p>A fallen shepherd who flinches from the Cross — you must shrink away from any holy symbol presented by a believer, or spend Willpower to push through.</p></div>
+      <div class="card"><h3>Stigmata ● <span class="tag warn">1 pt</span></h3><p class="meta">Bleeds at Hunger 4</p>
+        <p>Christ's wounds open on your hands, feet, and brow when Hunger reaches 4 — holy theatre to your flock, a Masquerade risk to everyone else.</p></div>
     </div>
-    <p class="note">⚠ Theme over efficiency: Stigmata fights your Rouse-heavy play (rituals raise Hunger fast, triggering the bleed often). If you want it safer, swap Stigmata → a second <b>Folkloric Block</b> (Threshold). Two 1-pt flaws meet the “min. 2 points of Flaws” rule exactly — no point buyback in V5.</p>
+    <p class="note">⚠ Theme over efficiency: Stigmata fights your Rouse-heavy play (rituals raise Hunger fast). The Hunger tracker above flags it live at 4+.</p>
   </section>
 
-  <!-- SIRE & HISTORY -->
   <section>
     <div class="shead"><h2>Sire <b>&amp;</b> History</h2><div class="line"></div><span class="num">Prelude</span></div>
     <div class="card">
@@ -289,7 +258,6 @@ section:nth-of-type(6){animation-delay:.44s}
       <p><b style="color:var(--blood-glow)">He took you at the altar of Santa María del Mar</b>, beneath the great rose window, after the last Mass — not as a gift but as <em>acquisition</em>: a childe cannot lie to its sire and cannot leave. Before he could bind you fully he <b>vanished</b> — into the Carna schism or the Second Inquisition's Iberian purges, no one will say — leaving you Embraced, half-taught, and abandoned with a hunger you never asked for.</p>
       <p class="note">He stole the one thing a priest trades in — <b>confession</b>. He damned you without absolution or reckoning. That is why the guilty must confess before you punish them: every soul you force to its knees is a rehearsal for the night you find him.</p>
     </div>
-
     <div class="frag" style="margin-top:18px">
       <div class="lead">What I Remember — the night at the altar</div>
       <ul>
@@ -307,89 +275,36 @@ section:nth-of-type(6){animation-delay:.44s}
     </div>
   </section>
 
-  <!-- AMBITION & DESIRE -->
   <section>
     <div class="shead"><h2>Ambition <b>&amp;</b> Desire</h2><div class="line"></div><span class="num">p.173–174</span></div>
     <div class="cols">
-      <div class="card">
-        <h3>Ambition <span class="tag">long term</span></h3>
-        <p class="meta">The engine of the chronicle</p>
+      <div class="card"><h3>Ambition <span class="tag">long term</span></h3><p class="meta">The engine of the chronicle</p>
         <p>“Find the sire who damned me at the altar of Santa María del Mar — and destroy him only after he kneels and confesses what he did.”</p>
-        <p class="note">Revenge + Conviction II + a broken Tremere blood-bond. Reaching a major milestone toward it restores Willpower.</p>
-      </div>
-      <div class="card">
-        <h3>Desire <span class="tag">this story</span></h3>
-        <p class="meta">Shifts session to session</p>
+        <p class="note">Revenge + Conviction II + a broken Tremere blood-bond. Reaching a major milestone restores Willpower.</p></div>
+      <div class="card"><h3>Desire <span class="tag">this story</span></h3><p class="meta">Shifts session to session</p>
         <p>“Unmask which of my flock at Santa María del Mar is feeding the Second Inquisition's Barcelona cell — and make them confess before the new moon.”</p>
-        <p class="note">Ties to your Herd and the SI's Iberian cell — hunters in the land of the first Inquisition. Satisfy it to immediately recover 1 Willpower, then set a new Desire.</p>
-      </div>
+        <p class="note">Ties to your Herd and the SI's Iberian cell — hunters in the land of the first Inquisition. Satisfy it to recover 1 Willpower.</p></div>
     </div>
   </section>
 
-  <!-- CONVICTIONS & TOUCHSTONES -->
   <section>
     <div class="shead"><h2>Convictions <b>&amp;</b> Touchstones</h2><div class="line"></div><span class="num">p.172–173</span></div>
     <div class="card">
-      <div class="vow">
-        <div class="mark">I</div>
-        <div class="body">
-          <div class="conv">“My vengeance is God's will; I am only the instrument.”</div>
-          <div class="ts">Touchstone — <b>Mossèn Aureli Vidal</b>, your half-blind old mentor, still preaching mercy in the Barri Gòtic, unaware you've twisted his teachings into a license for slaughter.</div>
-          <div class="hook">Stain hook: every “holy” cruelty he would condemn frays the bond; feeding on him shatters it.</div>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="mark">II</div>
-        <div class="body">
-          <div class="conv">“The guilty must confess before I punish them.”</div>
-          <div class="ts">Touchstone — <b>Sor Pilar Esteve</b>, chaplain at the Centre Penitenciari Brians, who hears the lifers confess — men who will die behind those walls. She insists no soul is punished unheard — the humane mirror of your ritual.</div>
-          <div class="hook">Stain hook: punishing without a confession is a sin you can't confess to her; her death removes the mirror that lets you call your cruelty holy.</div>
-        </div>
-      </div>
-      <div class="vow">
-        <div class="mark">III</div>
-        <div class="body">
-          <div class="conv">“Never harm a true innocent or a child.”</div>
-          <div class="ts">Touchstone — <b>Sofia Reyes, age 9</b>, an orphan of the Raval who shelters in the basilica, unafraid of you. Your one clean line — proof you can still protect.</div>
-          <div class="hook">Stain hook: harming any true innocent triggers a check; harming Sofia sends Humanity into freefall.</div>
-        </div>
-      </div>
+      <div class="vow"><div class="mark">I</div><div class="body">
+        <div class="conv">“My vengeance is God's will; I am only the instrument.”</div>
+        <div class="ts">Touchstone — <b>Mossèn Aureli Vidal</b>, your half-blind old mentor, still preaching mercy in the Barri Gòtic, unaware you've twisted his teachings into a license for slaughter.</div>
+        <div class="hook">Stain hook: every “holy” cruelty he would condemn frays the bond; feeding on him shatters it.</div></div></div>
+      <div class="vow"><div class="mark">II</div><div class="body">
+        <div class="conv">“The guilty must confess before I punish them.”</div>
+        <div class="ts">Touchstone — <b>Sor Pilar Esteve</b>, chaplain at the Centre Penitenciari Brians, who hears the lifers confess — men who will die behind those walls. She insists no soul is punished unheard — the humane mirror of your ritual.</div>
+        <div class="hook">Stain hook: punishing without a confession is a sin you can't confess to her; her death removes the mirror that lets you call your cruelty holy.</div></div></div>
+      <div class="vow"><div class="mark">III</div><div class="body">
+        <div class="conv">“Never harm a true innocent or a child.”</div>
+        <div class="ts">Touchstone — <b>Sofia Reyes, age 9</b>, an orphan of the Raval who shelters in the basilica, unafraid of you. Your one clean line — proof you can still protect.</div>
+        <div class="hook">Stain hook: harming any true innocent triggers a check; harming Sofia sends Humanity into freefall.</div></div></div>
     </div>
   </section>
 
-  <!-- TOUCHSTONES GALLERY -->
-  <section>
-    <div class="shead"><h2>The <b>Touchstones</b></h2><div class="line"></div><span class="num">p.173 · 3 mortals</span></div>
-    <div class="cols3">
-      <div class="card">
-        <h3>Mossèn Aureli Vidal</h3>
-        <p class="meta">Bound to Conviction I</p>
-        <p><b style="color:var(--gold)">Who:</b> Your half-blind old mentor, still hearing confessions at a chapel in the Barri Gòtic where you trained.</p>
-        <p><b style="color:var(--gold)">Embodies:</b> Mercy and forgiveness — the very thing you've perverted into a license to kill.</p>
-        <p><b style="color:var(--gold)">Bond:</b> His remembered voice still says “this is not what I taught you.” He has no idea what you've become.</p>
-        <p class="hook" style="color:#9c8e72;font-size:13.5px;margin-top:8px">Lose him: every condemned cruelty frays the link; feeding on him shatters the Conviction outright.</p>
-      </div>
-      <div class="card">
-        <h3>Sor Pilar Esteve</h3>
-        <p class="meta">Bound to Conviction II</p>
-        <p><b style="color:var(--gold)">Who:</b> A chaplain at the Centre Penitenciari Brians who ministers to the lifers — men who will die behind those walls — hearing their confessions.</p>
-        <p><b style="color:var(--gold)">Embodies:</b> “Confession before punishment” in its merciful key — no soul is punished unheard.</p>
-        <p><b style="color:var(--gold)">Bond:</b> You trained alongside her; she still believes you're the man you were, and offers counsel you can't bring yourself to refuse.</p>
-        <p class="hook" style="color:#9c8e72;font-size:13.5px;margin-top:8px">Lose her: punish without a confession and you can't face her; her death removes the one mirror that lets you call your vengeance just.</p>
-      </div>
-      <div class="card">
-        <h3>Sofia Reyes <small style="font-style:italic;color:var(--ash)">· age 9</small></h3>
-        <p class="meta">Bound to Conviction III</p>
-        <p><b style="color:var(--gold)">Who:</b> An orphan of the Raval who shelters in Santa María del Mar, unafraid of you in a way no adult is.</p>
-        <p><b style="color:var(--gold)">Embodies:</b> The pure, unconditional line — proof you can still protect rather than only destroy.</p>
-        <p><b style="color:var(--gold)">Bond:</b> Your Humanity anchor. The others justify the monster; Sofia limits it.</p>
-        <p class="hook" style="color:#9c8e72;font-size:13.5px;margin-top:8px">Lose her: harm any true innocent for a Stain check — harm Sofia and Humanity goes into freefall.</p>
-      </div>
-    </div>
-    <p class="note">A vampire keeps as many Touchstones as Convictions. Two of yours embody virtues you've <em>corrupted</em> (constant friction); only Sofia is a virtue you still <em>uphold</em> (the line whose loss actually costs you).</p>
-  </section>
-
-  <!-- THE BEAST -->
   <section>
     <div class="shead"><h2>The <b>Beast</b> — The Voice</h2><div class="line"></div><span class="num">Frenzy · Compulsion</span></div>
     <div class="frag">
@@ -398,40 +313,143 @@ section:nth-of-type(6){animation-delay:.44s}
       <p style="color:var(--bone);font-size:15.5px">It wears the voice of God Almighty — my own homiletic cadence turned sovereign — and it does not beg me to feed. It <b style="color:var(--blood-glow)">commands me to commit atrocities</b>, and calls them holy. When it rises I feel no terror and no hunger. I feel <em>chosen</em>. The doubt comes only after, in the ash: was that the Lord testing me, or the Devil in my blood? A believer cannot tell. A believer dare not disobey.</p>
     </div>
     <div class="cols3" style="margin-top:18px">
-      <div class="card">
-        <h3>Fury <span class="tag warn">danger frenzy</span></h3>
-        <p>Wrath is the priest's besetting sin, and the Voice knows it. Defiance or an unrepentant sinner, and it pronounces sentence with my teeth — <em>“Smite them. I command it.”</em></p>
-      </div>
-      <div class="card">
-        <h3>Perfectionism <span class="tag">clan compulsion</span></h3>
-        <p>The Voice demands the rite be flawless. <b>−2 dice</b> to all pools until a critical win or scene end (−1 on a repeat, gone on the second). It tells me the cruelty was <em>incomplete</em> — so I go further than I meant to.</p>
-      </div>
-      <div class="card">
-        <h3>Rötschreck <span class="tag warn">terror frenzy</span></h3>
-        <p>Fire and sun — and the Cross I flinch from. I can no longer tell holy terror from guilt; the Voice and my dead faith fight inside the same recoil.</p>
-      </div>
+      <div class="card"><h3>Fury <span class="tag warn">danger frenzy</span></h3><p>Wrath is the priest's besetting sin, and the Voice knows it. Defiance or an unrepentant sinner, and it pronounces sentence with my teeth — <em>“Smite them. I command it.”</em></p></div>
+      <div class="card"><h3>Perfectionism <span class="tag">clan compulsion</span></h3><p>The Voice demands the rite be flawless. <b>−2 dice</b> to all pools until a critical win or scene end (−1 on a repeat, gone on the second).</p></div>
+      <div class="card"><h3>Rötschreck <span class="tag warn">terror frenzy</span></h3><p>Fire and sun — and the Cross I flinch from. I can no longer tell holy terror from guilt; the Voice and my dead faith fight inside the same recoil.</p></div>
     </div>
-    <div class="card" style="margin-top:18px">
-      <h3>Bane — Sundered Bonds</h3>
-      <p>Since Vienna's fall my vitae can no longer <b>Blood Bond other Kindred</b>; others may still bind me, and binding mortals/ghouls takes extra feedings (= Bane Severity). A control-hungry warlock-priest, stripped of the one leash he most craved — the Voice's cruelest jest.</p>
-    </div>
-    <p class="note">The character wants <em>confession before punishment</em>. The Voice wants <em>punishment, now, of everyone</em>. Every frenzy is God — or the Beast wearing His face — trying to skip the trial.</p>
+    <div class="card" style="margin-top:18px"><h3>Bane — Sundered Bonds</h3>
+      <p>Since Vienna's fall my vitae can no longer <b>Blood Bond other Kindred</b>; others may still bind me, and binding mortals/ghouls takes extra feedings (= Bane Severity). A control-hungry warlock-priest, stripped of the one leash he most craved — the Voice's cruelest jest.</p></div>
   </section>
 
-  <!-- MORALITY -->
-  <section>
-    <div class="shead"><h2>Humanity</h2><div class="line"></div><span class="num">starting 7</span></div>
-    <div class="card">
-      <div class="track">
-        <i class="box fill"></i><i class="box fill"></i><i class="box fill"></i><i class="box fill"></i><i class="box fill"></i><i class="box fill"></i><i class="box fill"></i>
-        <i class="box"></i><i class="box"></i><i class="box"></i>
-      </div>
-      <p class="note">Humanity 7 of 10. Stains marked at the top of the track; convert to lost Humanity at session's end. Your morally-dubious vows shield acts of vengeance from Stains — only Conviction III, and your Touchstones, hold the real line.</p>
-    </div>
-  </section>
-
-  <footer>Embrace · Hunger · Penitence — Camarilla Dossier · The Penitent Blade</footer>
-
+  <footer>Embrace · Hunger · Penitence — Camarilla Dossier · saved in your browser</footer>
 </div>
+
+<div id="toast"></div>
+
+<script>
+const LS='vtm-penitent-blade-v2';
+const ATTRS={Physical:['Strength','Dexterity','Stamina'],Social:['Charisma','Manipulation','Composure'],Mental:['Intelligence','Wits','Resolve']};
+const SKILLS={
+  Physical:['Athletics','Brawl','Craft','Drive','Firearms','Larceny','Melee','Stealth','Survival'],
+  Social:['Animal Ken','Etiquette','Insight','Intimidation','Leadership','Performance','Persuasion','Streetwise','Subterfuge'],
+  Mental:['Academics','Awareness','Finance','Investigation','Medicine','Occult','Politics','Science','Technology']};
+const DISCS=[{n:'Auspex',clan:true},{n:'Dominate',clan:true},{n:'Blood Sorcery',clan:true},{n:'Presence',clan:false}];
+const DISC_CLAN={Auspex:true,Dominate:true,'Blood Sorcery':true,Presence:false};
+const BGS=['Herd','Fame','Resources','Allies','Contacts','Mask','Influence'];
+const SPEC={Occult:'Blood Magic',Academics:'Theology'};
+const RITUALS=[
+  {n:"Wake with Evening's Freshness",lvl:1},{n:'Blood Walk',lvl:1},{n:'Craft Bloodstone',lvl:1},{n:'Ward Against Ghouls',lvl:1},{n:'Clinging of the Insect',lvl:1},
+  {n:'Truth of Blood',lvl:2},{n:'Eyes of Babel',lvl:2},{n:'Illuminate the Trail of Prey',lvl:2},{n:'Communicate with Kindred Sire',lvl:2}];
+const DEFAULT={
+  name:'The Penitent Blade',mode:'free',xpEarned:0,xpSpent:0,
+  attrs:{Strength:1,Dexterity:2,Stamina:2,Charisma:4,Manipulation:3,Composure:3,Intelligence:3,Wits:2,Resolve:2},
+  skills:{Occult:4,Persuasion:3,Insight:3,Academics:3,Intimidation:2,Awareness:2,Subterfuge:2,Leadership:1,Medicine:1,Larceny:1},
+  disc:{Dominate:2,'Blood Sorcery':1,Presence:1,Auspex:0},
+  bg:{Herd:2,Fame:1},bp:1,hunger:1,humanity:7,hpDmg:[],wpDmg:[],
+  rituals:{"Wake with Evening's Freshness":true}};
+
+function clone(o){return JSON.parse(JSON.stringify(o));}
+let S=load();
+function load(){try{return Object.assign(clone(DEFAULT),JSON.parse(localStorage.getItem(LS))||{});}catch(e){return clone(DEFAULT);}}
+function save(){localStorage.setItem(LS,JSON.stringify(S));}
+function bag(cat){return cat==='attrs'?S.attrs:cat==='skills'?S.skills:cat==='disc'?S.disc:cat==='bg'?S.bg:null;}
+function getV(cat,item){if(cat==='bp')return S.bp||0;const b=bag(cat);return b[item]||0;}
+function setV(cat,item,v){if(cat==='bp'){S.bp=v;return;}bag(cat)[item]=v;}
+function mult(cat,item){if(cat==='attrs')return 5;if(cat==='skills')return 3;if(cat==='disc')return DISC_CLAN[item]?5:7;if(cat==='bp')return 10;return 0;}
+function rangeCost(cat,item,from,to){let c=0;for(let r=from+1;r<=to;r++){c+=(cat==='bg')?3:r*mult(cat,item);}return c;}
+function remaining(){return (+S.xpEarned||0)-(+S.xpSpent||0);}
+function toast(m,bad){const t=document.getElementById('toast');t.textContent=m;t.className='show'+(bad?' bad':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='',1900);}
+
+function change(cat,item,target,min,max){
+  let cur=getV(cat,item);target=Math.max(min,Math.min(max,target));
+  if(target===cur)return;
+  if(S.mode==='xp'){
+    if(target>cur){const cost=rangeCost(cat,item,cur,target);if(cost>remaining()){toast('Need '+cost+' XP — have '+remaining(),true);return;}S.xpSpent+=cost;toast('−'+cost+' XP · '+item+' → '+target);}
+    else{const ref=rangeCost(cat,item,target,cur);S.xpSpent-=ref;toast('+'+ref+' XP refunded · '+item+' → '+target);}
+  }
+  setV(cat,item,target);save();renderAll();
+}
+
+function dotRow(label,sub,cat,item,min,max){
+  const cur=getV(cat,item);
+  const row=document.createElement('div');row.className='rate';
+  const nm=document.createElement('span');nm.className='nm';nm.innerHTML=label+(sub?` <small>${sub}</small>`:'');
+  row.appendChild(nm);
+  if(S.mode==='xp'&&cur<max){const ch=document.createElement('span');ch.className='cost';ch.textContent='next +'+((cat==='bg')?3:(cur+1)*mult(cat,item))+'xp';row.appendChild(ch);}
+  const dd=document.createElement('span');dd.className='dots';
+  for(let i=1;i<=max;i++){const d=document.createElement('i');d.className='dot clk '+(i<=cur?'on':'x');d.onclick=()=>change(cat,item,(i===cur?i-1:i),min,max);dd.appendChild(d);}
+  row.appendChild(dd);return row;
+}
+function renderGroup(wrapId,groups,cat,min){
+  const wrap=document.getElementById(wrapId);wrap.innerHTML='';
+  for(const g in groups){const card=document.createElement('div');card.className='card';
+    const h=document.createElement('h3');h.textContent=g;card.appendChild(h);
+    groups[g].forEach(it=>{const sub=SPEC[it]?('Specialty: '+SPEC[it]):'';card.appendChild(dotRow(it,sub,cat,it,min,5));});
+    wrap.appendChild(card);}
+}
+function renderDisc(){const w=document.getElementById('discWrap');w.innerHTML='';
+  DISCS.forEach(d=>{const sub='<span class="clan">'+(d.clan?'in-clan':'out-of-clan')+'</span>';w.appendChild(dotRow(d.n,sub,'disc',d.n,0,5));});}
+function renderBg(){const w=document.getElementById('bgWrap');w.innerHTML='';BGS.forEach(b=>w.appendChild(dotRow(b,'','bg',b,0,5)));}
+function renderRituals(){const w=document.getElementById('ritualWrap');w.innerHTML='';
+  const bs=S.disc['Blood Sorcery']||0;document.getElementById('ritCeil').textContent='ceiling: Lv '+bs;
+  RITUALS.forEach(r=>{const have=!!S.rituals[r.n];const locked=r.lvl>bs&&!have;
+    const row=document.createElement('div');row.className='ckrow'+(have?' on':'')+(locked?' dis':'');
+    row.innerHTML='<span class="ckbox"></span><span class="cn">'+r.n+'</span><span class="lv">Lv '+r.lvl+(S.mode==='xp'?' · '+(r.lvl*3)+'xp':'')+'</span>';
+    row.onclick=()=>toggleRitual(r.n,r.lvl,have,locked);w.appendChild(row);});}
+function toggleRitual(n,lvl,have,locked){
+  if(locked){toast('Need Blood Sorcery '+lvl,true);return;}
+  if(S.mode==='xp'){const cost=lvl*3;
+    if(!have){if(cost>remaining()){toast('Need '+cost+' XP',true);return;}S.xpSpent+=cost;toast('−'+cost+' XP · '+n);}
+    else{S.xpSpent-=cost;toast('+'+cost+' XP refunded');}}
+  if(have)delete S.rituals[n];else S.rituals[n]=true;save();renderAll();
+}
+function dmgTrack(elId,arr,size){const el=document.getElementById(elId);el.innerHTML='';
+  while(arr.length<size)arr.push('0');arr.length=size;
+  for(let i=0;i<size;i++){const st=arr[i]||'0';const b=document.createElement('i');
+    b.className='box clk '+(st==='s'?'sup':st==='a'?'agg':'');
+    b.onclick=()=>{arr[i]=st==='0'?'s':st==='s'?'a':'0';save();renderAll();};el.appendChild(b);}}
+function renderVitals(){
+  const sta=S.attrs.Stamina||0,health=sta+3,wp=(S.attrs.Composure||0)+(S.attrs.Resolve||0);
+  document.getElementById('hpVal').textContent=health;document.getElementById('wpVal').textContent=wp;
+  dmgTrack('hpTrack',S.hpDmg,health);dmgTrack('wpTrack',S.wpDmg,wp);
+  document.getElementById('hungerVal').textContent=S.hunger;
+  const ht=document.getElementById('hungerTrack');ht.innerHTML='';
+  for(let i=1;i<=5;i++){const d=document.createElement('i');d.className='dot clk '+(i<=S.hunger?'on':'x');
+    d.onclick=()=>{S.hunger=(i===S.hunger?i-1:i);S.hunger=Math.max(0,Math.min(5,S.hunger));save();renderAll();};ht.appendChild(d);}
+  document.getElementById('stigwarn').textContent=S.hunger>=4?'✝ Stigmata bleeds — wounds open on hands, feet, and brow (Masquerade risk).':'';
+  const bw=document.getElementById('bpWrap');bw.innerHTML='';bw.appendChild(dotRow('Blood Potency','','bp',0,5));
+  document.getElementById('humVal').textContent=S.humanity+' / 10';
+  const hum=document.getElementById('humTrack');hum.innerHTML='';
+  for(let i=1;i<=10;i++){const b=document.createElement('i');b.className='box clk '+(i<=S.humanity?'fill':'');
+    b.onclick=()=>{S.humanity=(i===S.humanity?i-1:i);save();renderAll();};hum.appendChild(b);}
+}
+function renderLedger(){
+  document.getElementById('mFree').classList.toggle('on',S.mode==='free');
+  document.getElementById('mXp').classList.toggle('on',S.mode==='xp');
+  document.getElementById('xpEarned').value=S.xpEarned||0;
+  document.getElementById('xpSpent').textContent=S.xpSpent||0;
+  const rem=remaining();const r=document.getElementById('xpRemain');r.textContent=rem;r.style.color=rem<0?'#c41a24':'';
+  document.getElementById('modeHelp').textContent=S.mode==='free'
+    ? 'Creation / Free mode — set dots freely with no XP cost. Use this to build the character.'
+    : 'Advancement / XP mode — raising a trait spends XP by V5 rules; lowering refunds it. Set your earned XP at right.';
+}
+function renderDerived(){const sta=S.attrs.Stamina||0,wp=(S.attrs.Composure||0)+(S.attrs.Resolve||0);
+  document.getElementById('derived').innerHTML='Derived — <b>Health</b> '+(sta+3)+' (Stamina + 3) · <b>Willpower</b> '+wp+' (Composure + Resolve). These update automatically with your Attributes.';}
+function renderAll(){
+  renderLedger();
+  renderGroup('attrsWrap',ATTRS,'attrs',1);
+  renderGroup('skillsWrap',SKILLS,'skills',0);
+  renderDisc();renderBg();renderRituals();renderVitals();renderDerived();
+  const cn=document.getElementById('charName');if(cn.textContent!==S.name)cn.textContent=S.name;
+}
+function setMode(m){S.mode=m;save();renderAll();}
+function resetAll(){if(confirm('Reset the entire sheet to the starting build? This clears your saved changes.')){S=clone(DEFAULT);save();renderAll();}}
+function exportJSON(){const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(S.name||'kindred').replace(/\s+/g,'-').toLowerCase()+'.json';a.click();}
+function importJSON(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{S=Object.assign(clone(DEFAULT),JSON.parse(rd.result));save();renderAll();toast('Imported');}catch(err){toast('Bad file',true);}};rd.readAsText(f);e.target.value='';}
+document.getElementById('xpEarned').addEventListener('input',e=>{S.xpEarned=Math.max(0,parseInt(e.target.value||0));save();renderLedger();});
+document.getElementById('charName').addEventListener('input',e=>{S.name=e.target.textContent.trim()||'Unnamed';save();});
+document.getElementById('charName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();}});
+renderAll();
+</script>
 </body>
 </html>

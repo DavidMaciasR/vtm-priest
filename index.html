@@ -461,5 +461,132 @@ document.getElementById('charName').addEventListener('input',e=>{S.name=e.target
 document.getElementById('charName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.target.blur();}});
 renderAll();save();
 </script>
+<!-- ===== Session log: start / save / end sessions, stored in this browser and optionally in a folder on disk ===== -->
+<style>
+.ss{--ss-acc:var(--gold,var(--gilt));--ss-hot:var(--blood-glow,var(--rose-glow));--ss-deep:var(--oxblood,var(--madder));--ss-text:var(--parch,var(--paper));--ss-dim:var(--ash);--ss-rule:var(--rule)}
+.ss .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ss .status{font-size:15px;color:var(--ss-text)}
+.ss .status b{color:var(--ss-hot);font-weight:500}
+.ss .status small{display:block;font-size:12.5px;color:var(--ss-dim);font-style:italic}
+.ss input.ttl{flex:1 1 220px;min-width:0;background:rgba(0,0,0,.35);border:1px solid var(--ss-rule);color:var(--ss-text);font:inherit;font-size:15px;padding:6px 9px;border-radius:2px}
+.ss .btn.hot{background:var(--ss-deep);color:var(--ss-text);border-color:var(--ss-hot)}
+.ss .btn:disabled{opacity:.35;cursor:not-allowed}
+.ss .disk{font-size:12.5px;color:var(--ss-dim);font-style:italic;margin-top:10px}
+.ss .disk b{color:var(--ss-acc);font-style:normal;font-weight:500}
+.ss .sess{border-top:1px solid var(--ss-rule);padding:12px 0}
+.ss .sess:first-child{border-top:0}
+.ss .sh{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.ss .sh .n{font-size:18px;color:var(--ss-text)}
+.ss .sh .n b{color:var(--ss-hot);font-weight:500}
+.ss .sh .when{font-size:12.5px;color:var(--ss-dim);font-style:italic}
+.ss .sh .sp{flex:1}
+.ss .chg{list-style:none;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.ss .chg li{font-size:13.5px;color:var(--ss-dim)}
+.ss .chg li b{color:var(--ss-text);font-weight:500}
+.ss .chg li.none{font-style:italic}
+.ss textarea{width:100%;min-height:58px;margin-top:8px;background:rgba(0,0,0,.3);border:1px solid var(--ss-rule);color:var(--ss-text);font:inherit;font-size:14.5px;padding:7px 9px;border-radius:2px;resize:vertical}
+.ss .cps{font-size:12.5px;color:var(--ss-dim);margin-top:6px}
+.ss .cps a{color:var(--ss-acc);cursor:pointer;text-decoration:underline dotted;margin-right:8px}
+.ss .live{border:1px solid var(--ss-hot);border-radius:3px;padding:12px 14px;margin-top:12px;background:rgba(0,0,0,.18)}
+</style>
+<script>
+(function(){
+const KEY=LS+'-sessions';
+const HKEY=LS;            // IndexedDB key for this sheet's folder handle
+const FILE=(LS.replace(/[^a-z0-9-]+/gi,'-'))+'.json';
+let L=loadLog(),dir=null;
+function loadLog(){try{return Object.assign({current:null,done:[]},JSON.parse(localStorage.getItem(KEY))||{});}catch(e){return {current:null,done:[]};}}
+function storeLog(){try{localStorage.setItem(KEY,JSON.stringify(L));}catch(e){}}
+function snap(){return JSON.parse(JSON.stringify(S));}
+function nextN(){const all=L.done.map(s=>s.n).concat(L.current?[L.current.n]:[]);return all.length?Math.max(...all)+1:1;}
+function fmt(t){const d=new Date(t);return d.toLocaleDateString(undefined,{day:'numeric',month:'short'})+' '+d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// ---- what changed between two snapshots ----
+const SKIP={mode:1,hpDmg:1,wpDmg:1};
+function flat(o,p,out){for(const k in o){const v=o[k];if(!p&&SKIP[k])continue;
+  if(v&&typeof v==='object'&&!Array.isArray(v))flat(v,p?p+'.'+k:k,out);else if(!Array.isArray(v))out[p?p+'.'+k:k]=v;}return out;}
+function dmg(a){a=a||[];const s=a.filter(x=>x==='s').length,g=a.filter(x=>x==='a').length;return s||g?s+' sup / '+g+' agg':'none';}
+const NICE={xpEarned:'XP earned',xpSpent:'XP spent',hunger:'Hunger',humanity:'Humanity',bp:'Blood Potency',name:'Name',ugly:'Surroundings'};
+function label(k){const parts=k.split('.');const last=parts[parts.length-1];return NICE[k]||last;}
+function val(k,v){if(v===true)return k.startsWith('rituals')||k.startsWith('powers')?'learned':'yes';if(v===false||v===undefined)return k.startsWith('rituals')||k.startsWith('powers')?'—':(v===false?'no':'0');return v;}
+function diff(a,b){if(!a||!b)return [];const fa=flat(a,'',{}),fb=flat(b,'',{}),out=[];
+  new Set([...Object.keys(fa),...Object.keys(fb)]).forEach(k=>{const x=fa[k],y=fb[k];if((x||0)!==(y||0)&&x!==y)out.push('<b>'+esc(label(k))+'</b> '+esc(val(k,x))+' → '+esc(val(k,y)));});
+  ['hpDmg','wpDmg'].forEach(k=>{const x=dmg(a[k]),y=dmg(b[k]);if(x!==y)out.push('<b>'+(k==='hpDmg'?'Health dmg':'Willpower dmg')+'</b> '+x+' → '+y);});
+  return out;}
+function chgList(a,b){const d=diff(a,b);return '<ul class="chg">'+(d.length?d.map(x=>'<li>'+x+'</li>').join(''):'<li class="none">no changes</li>')+'</ul>';}
+
+// ---- folder on disk (Chrome/Edge File System Access API) ----
+const canDisk=!!window.showDirectoryPicker;
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('vtm-session-folders',1);r.onupgradeneeded=()=>r.result.createObjectStore('h');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function idbGet(k){const db=await idb();return new Promise(r=>{const q=db.transaction('h').objectStore('h').get(k);q.onsuccess=()=>r(q.result);q.onerror=()=>r(null);});}
+async function idbSet(k,v){const db=await idb();return new Promise(r=>{const t=db.transaction('h','readwrite');t.objectStore('h').put(v,k);t.oncomplete=()=>r();t.onerror=()=>r();});}
+async function linkFolder(){try{dir=await window.showDirectoryPicker({id:'vtm-sessions',mode:'readwrite'});await idbSet(HKEY,dir);await writeDisk();toast('Folder linked: saves go to '+dir.name+'/'+FILE);render();}catch(e){if(e.name!=='AbortError')toast('Could not link folder',true);}}
+async function ensureDir(){if(!dir)return false;try{let p=await dir.queryPermission({mode:'readwrite'});if(p!=='granted')p=await dir.requestPermission({mode:'readwrite'});return p==='granted';}catch(e){return false;}}
+function payload(){return JSON.stringify({sheet:LS,savedAt:new Date().toISOString(),character:S,sessions:L},null,2);}
+async function writeDisk(){if(!(await ensureDir()))return false;try{const fh=await dir.getFileHandle(FILE,{create:true});const w=await fh.createWritable();await w.write(payload());await w.close();L.lastDisk=Date.now();storeLog();return true;}catch(e){return false;}}
+function download(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([payload()],{type:'application/json'}));a.download=FILE;a.click();}
+async function persist(msg){storeLog();let where='browser';if(dir&&await writeDisk())where='disk + browser';toast(msg+' · saved to '+where);render();}
+
+// ---- actions ----
+async function start(){if(L.current)return;const t=document.getElementById('ssTitle').value.trim();
+  L.current={n:nextN(),title:t,startedAt:Date.now(),start:snap(),checkpoints:[],notes:''};await persist('Session '+L.current.n+' started');}
+async function checkpoint(){if(!L.current){toast('Start a session first',true);return;}
+  L.current.checkpoints.push({at:Date.now(),state:snap()});await persist('Progress saved');}
+async function end(){if(!L.current)return;if(!confirm('End session '+L.current.n+'? Your current sheet becomes its final state.'))return;
+  const c=L.current;c.endedAt=Date.now();c.end=snap();L.done.unshift(c);L.current=null;await persist('Session '+c.n+' ended');}
+function restore(state,what){if(!confirm('Load the sheet as it was at '+what+'? Your current sheet is replaced (save a checkpoint first if you need it).'))return;
+  S=Object.assign(clone(DEFAULT),JSON.parse(JSON.stringify(state)));save();renderAll();toast('Sheet restored to '+what);render();}
+function del(i){const s=L.done[i];if(!confirm('Delete session '+s.n+' from the log? The sheet itself is not changed.'))return;L.done.splice(i,1);persist('Session deleted');}
+function importLog(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);
+  if(!j.sessions)throw 0;if(!confirm('Replace this sheet and its session log with the file "'+f.name+'"?'))return;
+  L=Object.assign({current:null,done:[]},j.sessions);if(j.character){S=Object.assign(clone(DEFAULT),j.character);save();}storeLog();renderAll();render();toast('Loaded '+f.name);}catch(err){toast('Not a session file',true);}};rd.readAsText(f);e.target.value='';}
+window.SS={start,checkpoint,end,linkFolder,download,importLog,
+  restoreStart:i=>restore(L.done[i].start,'the start of session '+L.done[i].n),
+  restoreEnd:i=>restore(L.done[i].end,'the end of session '+L.done[i].n),
+  restoreCp:(i,j)=>{const s=i<0?L.current:L.done[i];restore(s.checkpoints[j].state,'checkpoint '+(j+1)+' of session '+s.n);},
+  restoreCurStart:()=>restore(L.current.start,'the start of session '+L.current.n),
+  del,notes:(i,v)=>{(i<0?L.current:L.done[i]).notes=v;storeLog();}};
+
+// ---- UI ----
+const sec=document.createElement('section');sec.className='ss';sec.id='sessions';
+document.getElementById('modeHelp').insertAdjacentElement('afterend',sec);
+const qb=document.createElement('button');qb.className='btn';qb.id='ssQuick';qb.onclick=checkpoint;
+document.querySelector('.ledger .spacer').insertAdjacentElement('afterend',qb);
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();L.current?checkpoint():toast('Start a session first',true);}});
+
+function cps(s,i){if(!s.checkpoints||!s.checkpoints.length)return '';
+  return '<div class="cps">Checkpoints: '+s.checkpoints.map((c,j)=>'<a onclick="SS.restoreCp('+i+','+j+')" title="Load this checkpoint">'+(j+1)+' · '+fmt(c.at)+'</a>').join('')+'</div>';}
+function render(){
+  const c=L.current;
+  qb.textContent=c?'Save progress':'No session';qb.disabled=!c;qb.className='btn'+(c?' hot':'');
+  let h='<div class="shead"><h2>Session <b>Log</b></h2><div class="line"></div><span class="num">⌘S saves progress</span></div><div class="card">';
+  if(c){h+='<div class="bar"><div class="status">Session <b>'+c.n+'</b>'+(c.title?' · '+esc(c.title):'')+' is running<small>started '+fmt(c.startedAt)+' · '+c.checkpoints.length+' checkpoint'+(c.checkpoints.length===1?'':'s')+'</small></div><span style="flex:1"></span>'
+      +'<button class="btn hot" onclick="SS.checkpoint()">Save progress</button><button class="btn" onclick="SS.end()">End session</button></div>'
+      +'<div class="live"><div class="lab2" style="margin-bottom:2px">Changes so far this session</div>'+chgList(c.start,S)
+      +'<textarea placeholder="Session notes: what happened, who you met, what you owe…" oninput="SS.notes(-1,this.value)">'+esc(c.notes)+'</textarea>'
+      +cps(c,-1)+'<div class="cps"><a onclick="SS.restoreCurStart()">undo everything since the session started</a></div></div>';}
+  else{h+='<div class="bar"><input class="ttl" id="ssTitle" placeholder="Session '+nextN()+' title (optional)"><button class="btn hot" onclick="SS.start()">Start session '+nextN()+'</button></div>';}
+  h+='<div class="disk">'+(canDisk
+      ?(dir?'Saving to folder <b>'+esc(dir.name)+'</b> as <b>'+FILE+'</b>'+(L.lastDisk?' · last written '+fmt(L.lastDisk):'')+'. <a class="ssl" onclick="SS.linkFolder()">change</a>'
+           :'Saved in this browser only. <a class="ssl" onclick="SS.linkFolder()">Link a folder on this laptop</a> to also keep a file copy that survives clearing the browser.')
+      :'Saved in this browser. This browser can\'t write to a folder; use “Download file” to keep a copy.')
+    +' · <a class="ssl" onclick="SS.download()">Download file</a> · <a class="ssl" onclick="document.getElementById(\'ssImp\').click()">Load file</a></div>'
+    +'<input type="file" id="ssImp" accept="application/json" style="display:none" onchange="SS.importLog(event)"></div>';
+  if(L.done.length){h+='<div class="card" style="margin-top:14px">'+L.done.map((s,i)=>'<div class="sess"><div class="sh"><span class="n">Session <b>'+s.n+'</b>'+(s.title?' · '+esc(s.title):'')+'</span><span class="when">'+fmt(s.startedAt)+' → '+fmt(s.endedAt)+'</span><span class="sp"></span>'
+      +'<button class="btn" onclick="SS.restoreStart('+i+')">Load start</button><button class="btn" onclick="SS.restoreEnd('+i+')">Load end</button><button class="btn" onclick="SS.del('+i+')">✕</button></div>'
+      +chgList(s.start,s.end)+'<textarea placeholder="Notes" oninput="SS.notes('+i+',this.value)">'+esc(s.notes)+'</textarea>'+cps(s,i)+'</div>').join('')+'</div>';}
+  sec.innerHTML=h;
+  sec.querySelectorAll('a.ssl').forEach(a=>{a.style.cssText='color:var(--ss-acc);cursor:pointer;text-decoration:underline dotted';});
+}
+// keep the "changes so far" list live as the sheet is edited (without stealing focus from the notes box)
+const _renderAll=renderAll;
+renderAll=function(){_renderAll();if(L.current&&!sec.contains(document.activeElement))render();};
+window.addEventListener('click',()=>{if(L.current)setTimeout(()=>{if(!sec.contains(document.activeElement))render();},0);});
+render();
+if(canDisk)idbGet(HKEY).then(h=>{if(h){dir=h;render();}}).catch(()=>{});
+})();
+</script>
+<!-- ===== /Session log ===== -->
 </body>
 </html>

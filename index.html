@@ -427,7 +427,7 @@ function renderVitals(){
   for(let i=1;i<=5;i++){const d=document.createElement('i');d.className='dot clk '+(i<=S.hunger?'on':'x');
     d.onclick=()=>{S.hunger=(i===S.hunger?i-1:i);S.hunger=Math.max(0,Math.min(5,S.hunger));save();renderAll();};ht.appendChild(d);}
   document.getElementById('stigwarn').textContent=S.hunger>=4?'✝ Stigmata bleeds — wounds open on hands, feet, and brow (Masquerade risk).':'';
-  const bw=document.getElementById('bpWrap');bw.innerHTML='';bw.appendChild(dotRow('Blood Potency','','bp',0,5));
+  const bw=document.getElementById('bpWrap');bw.innerHTML='';bw.appendChild(dotRow('Blood Potency','','bp',0,0,5));
   document.getElementById('humVal').textContent=S.humanity+' / 10';
   const hum=document.getElementById('humTrack');hum.innerHTML='';
   for(let i=1;i<=10;i++){const b=document.createElement('i');b.className='box clk '+(i<=S.humanity?'fill':'');
